@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Un Salto con Destino</title>
-  <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/main.min.css' rel='stylesheet' />
-  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/main.min.js'></script>
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -20,127 +19,185 @@
       padding: 1em;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
+    header img {
+      max-width: 150px;
+      border-radius: 12px;
+    }
     main {
       padding: 1em;
-      max-width: 1000px;
+      max-width: 900px;
       margin: auto;
     }
     section {
+      margin-bottom: 2em;
       background: #fff;
       padding: 1em;
-      margin-bottom: 2em;
       border-radius: 12px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
     h2 {
       color: #008c9e;
     }
-    .hidden {
-      display: none;
-    }
-    table {
+    select, input, textarea, button {
       width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
       padding: 0.5em;
-      border-bottom: 1px solid #ddd;
+      margin-top: 0.5em;
+      margin-bottom: 1em;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1em;
     }
     button {
       background-color: #008c9e;
       color: white;
       border: none;
-      padding: 0.5em 1em;
-      border-radius: 8px;
       cursor: pointer;
     }
-    input, select {
-      width: 100%;
-      margin-bottom: 1em;
-      padding: 0.5em;
+    .success-message {
+      color: green;
+      background-color: #dff0d8;
+      padding: 1em;
       border-radius: 8px;
-      border: 1px solid #ccc;
+      display: none;
     }
-    #calendar {
-      max-width: 900px;
-      margin: auto;
+    nav {
+      text-align: center;
+      margin: 1em 0;
+    }
+    nav select {
+      width: auto;
+      margin: 0 0.5em;
+    }
+    .contacto {
+      font-size: 0.9em;
+      text-align: center;
+    }
+    .hidden {
+      display: none;
+    }
+    .fc {
+      background: white;
+      border-radius: 12px;
+      padding: 1em;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
   </style>
 </head>
 <body>
   <header>
+    <img src="https://github.com/juanka822/ac/blob/ef15ef908b9bb1b5c94558f7ba389868d0c8aa17/1690165295166.jpeg?raw=true" alt="Logo Principal">
     <h1>Un Salto con Destino</h1>
   </header>
 
+  <nav>
+    <label for="especialidades">Especialidades médicas:</label>
+    <select id="especialidades">
+      <option>Nefrología</option>
+      <option>Diabetes</option>
+      <option>Psicología</option>
+      <option>Nutrición</option>
+      <option>Gerontología</option>
+    </select>
+    <button onclick="document.getElementById('formulario-cita').scrollIntoView({behavior: 'smooth'})">Agendar Cita</button>
+  </nav>
+
   <main>
-    <section id="login">
-      <h2>Iniciar sesión</h2>
-      <input type="text" id="nombre" placeholder="Nombre" required />
-      <input type="email" id="correo" placeholder="Correo" required />
-      <select id="rol">
-        <option value="paciente">Paciente</option>
-        <option value="medico">Médico</option>
-        <option value="admin">Administrador</option>
-      </select>
-      <button onclick="iniciarSesion()">Ingresar</button>
+    <section>
+      <h2>¿Quiénes somos?</h2>
+      <p><strong>Misión:</strong> Proporcionar servicios orientados a la salud, educación y el autoempleo [...]</p>
+      <p><strong>Visión:</strong> Posicionarnos como una asociación civil ampliamente reconocida [...]</p>
+      <p><strong>Valores:</strong> Compromiso, Respeto, Responsabilidad, Trabajo en Equipo, Empatía.</p>
     </section>
 
-    <section id="panel" class="hidden">
-      <h2 id="tituloPanel"></h2>
+    <section id="formulario-cita">
+      <h2>Agendar Cita Médica</h2>
+      <form id="citaForm">
+        <input type="text" name="nombre" placeholder="Nombre completo" required>
+        <input type="tel" name="telefono" placeholder="Teléfono" required>
+        <input type="email" name="correo" placeholder="Correo electrónico" required>
+        <select name="sexo">
+          <option value="Femenino">Femenino</option>
+          <option value="Masculino">Masculino</option>
+          <option value="Otro">Otro</option>
+        </select>
+        <select name="especialidad">
+          <option>Nefrología</option>
+          <option>Diabetes</option>
+          <option>Psicología</option>
+          <option>Nutrición</option>
+          <option>Gerontología</option>
+        </select>
+        <input type="date" name="fecha" required>
+        <input type="time" name="hora" required>
+        <textarea name="comentarios" placeholder="Comentarios adicionales"></textarea>
+        <button type="submit">Enviar cita</button>
+        <div class="success-message" id="successMsg">
+          ✅ Gracias, tu cita ha sido agendada.<br>
+          ⏳ Redirigiendo al inicio...<br>
+          🎉 Te contactaremos pronto.
+        </div>
+      </form>
+    </section>
+
+    <section>
+      <h2>Disponibilidad de Citas</h2>
       <div id="calendar"></div>
     </section>
   </main>
 
   <footer>
-    <p>Dirección: El Salto, Jalisco</p>
+    <div class="contacto">
+      <p><strong>Dirección:</strong> C. Vicente Suárez 17, Potrero Nuevo, 45680 El Salto, Jal.</p>
+      <p><strong>Teléfono:</strong> 33 3161 2199</p>
+      <p><strong>Iniciar sesión:</strong> Usa el formulario arriba 👆</p>
+    </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
   <script>
-    const usuarios = {
-      "paciente@test.com": { nombre: "Paciente", rol: "paciente" },
-      "medico@test.com": { nombre: "Dr. Juan", rol: "medico" },
-      "admin@test.com": { nombre: "Admin", rol: "admin" }
-    };
+    document.addEventListener('DOMContentLoaded', function() {
+      const calendarEl = document.getElementById('calendar');
+      const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale: 'es',
+        height: 500,
+        events: [], // Aquí se podrán cargar eventos futuros desde Firebase
+        selectable: false
+      });
+      calendar.render();
+    });
 
-    let calendar;
+    const form = document.getElementById('citaForm');
+    const successMsg = document.getElementById('successMsg');
 
-    function iniciarSesion() {
-      const correo = document.getElementById('correo').value;
-      const nombre = document.getElementById('nombre').value;
-      const rol = document.getElementById('rol').value;
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
 
-      if (usuarios[correo] && usuarios[correo].rol === rol) {
-        document.getElementById('login').classList.add('hidden');
-        document.getElementById('panel').classList.remove('hidden');
-        document.getElementById('tituloPanel').textContent = `Bienvenido, ${nombre} (${rol})`;
+      const data = new FormData(form);
+      const object = {};
+      data.forEach((value, key) => object[key] = value);
 
-        calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
-          initialView: 'dayGridMonth',
-          events: obtenerEventosDummy(rol),
-          selectable: true,
-          select: function(info) {
-            if (rol === 'paciente') {
-              const title = prompt('Motivo de la cita:');
-              if (title) {
-                calendar.addEvent({ title, start: info.startStr, allDay: true });
-                alert('Cita solicitada para revisión.');
-              }
-            }
-          }
-        });
-        calendar.render();
-      } else {
-        alert("Credenciales inválidas");
-      }
-    }
-
-    function obtenerEventosDummy(rol) {
-      const base = [
-        { title: 'Cita ocupada', start: '2025-05-05' },
-        { title: 'Consulta', start: '2025-05-10' },
-      ];
-      return rol === 'paciente' ? base : base.concat({ title: 'Bloqueado', start: '2025-05-15' });
-    }
+      fetch('AQUI_VA_TU_URL_DE_GOOGLE_SHEETS', {
+        method: 'POST',
+        body: JSON.stringify(object),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          successMsg.style.display = 'block';
+          form.reset();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          setTimeout(() => {
+            successMsg.style.display = 'none';
+          }, 5000);
+        } else {
+          alert('Error al enviar el formulario. Intenta de nuevo.');
+        }
+      })
+      .catch(() => alert('Error de red al enviar la cita.'));
+    });
   </script>
 </body>
 </html>
